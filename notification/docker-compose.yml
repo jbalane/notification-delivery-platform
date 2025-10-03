@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    container_name: notification-app
+    image: notification-app:latest
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    volumes:
+      - ./rules.yml:/app/config/rules.yml
+
+  db:
+    image: postgres:15
+    container_name: notification-db
+    restart: always
+    environment:
+      POSTGRES_USER: notifuser
+      POSTGRES_PASSWORD: notifpass
+      POSTGRES_DB: notificationdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

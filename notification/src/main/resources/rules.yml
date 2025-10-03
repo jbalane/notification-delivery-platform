@@ -1,0 +1,16 @@
+rules:
+  - id: rate_limit
+    type: RATE_LIMIT
+    channel: SMS
+    limit: 3
+    windowMinutes: 60
+
+  - id: dedup
+    type: DEDUP
+    windowMinutes: 5
+
+  - id: night_block
+    type: NIGHT_BLOCK
+    country: PHILIPPINES
+    startHour: 22
+    endHour: 6
